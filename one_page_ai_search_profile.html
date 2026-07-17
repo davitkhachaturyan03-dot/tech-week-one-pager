@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Davit Khachaturyan — AI Search &amp; Retrieval Engineer</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --surface: #ffffff;
+    --ink: #1e2124;
+    --ink-muted: #5b6169;
+    --accent: #1f7a70;
+    --accent-strong: #14554e;
+    --accent-soft: #e4f2f0;
+    --rule: #dfdcd4;
+    --graph-line: #1f7a70;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171a;
+      --surface: #1b1f23;
+      --ink: #eef0f1;
+      --ink-muted: #9aa1a8;
+      --accent: #4fd1c5;
+      --accent-strong: #7fe3da;
+      --accent-soft: #1d3330;
+      --rule: #2a2f34;
+      --graph-line: #4fd1c5;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14171a;
+    --surface: #1b1f23;
+    --ink: #eef0f1;
+    --ink-muted: #9aa1a8;
+    --accent: #4fd1c5;
+    --accent-strong: #7fe3da;
+    --accent-soft: #1d3330;
+    --rule: #2a2f34;
+    --graph-line: #4fd1c5;
+  }
+  :root[data-theme="light"] {
+    --bg: #faf8f5;
+    --surface: #ffffff;
+    --ink: #1e2124;
+    --ink-muted: #5b6169;
+    --accent: #1f7a70;
+    --accent-strong: #14554e;
+    --accent-soft: #e4f2f0;
+    --rule: #dfdcd4;
+    --graph-line: #1f7a70;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4.25rem 2rem 3.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-graph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 640px;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 1rem;
+  }
+
+  h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: clamp(2.3rem, 5vw, 3.1rem);
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.08rem;
+    color: var(--ink-muted);
+    margin: 0 0 2.1rem;
+  }
+
+  .statement {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .statement svg {
+    flex: none;
+    margin-top: 0.55rem;
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent);
+  }
+
+  .statement p {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    line-height: 1.5;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  /* ---------- Body layout ---------- */
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(180px, 230px) 1fr;
+    gap: 3.25rem;
+    align-items: start;
+    padding: 3.25rem 2rem 4.5rem;
+  }
+
+  .sidebar h2, .main h2 {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 1.1rem;
+  }
+
+  .sidebar section + section {
+    margin-top: 2.6rem;
+  }
+
+  .focus-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .focus-list li {
+    position: relative;
+    padding-left: 1rem;
+    font-size: 0.93rem;
+    line-height: 1.45;
+  }
+
+  .focus-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .offer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .offer-list li {
+    font-size: 0.9rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  .avail {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+
+  .avail .dates {
+    display: block;
+    margin-top: 0.4rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ---------- Case studies ---------- */
+
+  .case {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 1.6rem 1.75rem 1.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .case + .case {
+    margin-top: 1.4rem;
+  }
+
+  .case-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .case-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .case-kicker svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--accent);
+  }
+
+  .case-num {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--rule);
+    line-height: 1;
+  }
+
+  .case-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 1.28rem;
+    font-weight: 700;
+    margin: 0 0 0.65rem;
+    text-wrap: balance;
+  }
+
+  .case-body {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--ink-muted);
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  footer {
+    padding: 1.6rem 2rem 2.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 2.75rem 1.4rem 3.5rem;
+    }
+    .hero { padding: 3.25rem 1.4rem 2.5rem; }
+    .sidebar { order: 2; }
+    .main { order: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hero">
+    <svg class="hero-graph" viewBox="0 0 640 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="var(--graph-line)" stroke-width="1">
+        <line x1="520" y1="40" x2="600" y2="90" stroke-opacity="0.35"></line>
+        <line x1="520" y1="40" x2="470" y2="110" stroke-opacity="0.35"></line>
+        <line x1="600" y1="90" x2="470" y2="110" stroke-opacity="0.25"></line>
+        <line x1="470" y1="110" x2="540" y2="190" stroke-opacity="0.3"></line>
+        <line x1="600" y1="90" x2="610" y2="180" stroke-opacity="0.25"></line>
+        <line x1="540" y1="190" x2="610" y2="180" stroke-opacity="0.2"></line>
+        <line x1="470" y1="110" x2="400" y2="70" stroke-opacity="0.2"></line>
+      </g>
+      <g fill="var(--graph-line)">
+        <circle cx="520" cy="40" r="4" fill-opacity="0.6"></circle>
+        <circle cx="600" cy="90" r="3" fill-opacity="0.4"></circle>
+        <circle cx="470" cy="110" r="5" fill-opacity="0.75"></circle>
+        <circle cx="540" cy="190" r="3" fill-opacity="0.4"></circle>
+        <circle cx="610" cy="180" r="3.5" fill-opacity="0.45"></circle>
+        <circle cx="400" cy="70" r="2.5" fill-opacity="0.3"></circle>
+      </g>
+    </svg>
+
+    <div class="hero-inner">
+      <p class="eyebrow">AI Search &amp; Retrieval Engineer</p>
+      <h1>Davit Khachaturyan</h1>
+      <p class="subtitle">Senior AI Search and Retrieval Engineer · Yerevan, Armenia</p>
+
+      <div class="statement">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <p>I specialize in production AI search and retrieval&nbsp;&mdash; hybrid search, GraphRAG, and relevance engineering&nbsp;&mdash; in domains where naive RAG isn't good enough.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <section>
+        <h2>Focus Areas</h2>
+        <ul class="focus-list">
+          <li>Content ingestion, enrichment &amp; indexing</li>
+          <li>Query intelligence &amp; terminology expansion</li>
+          <li>Retrieval signal fusion &amp; reranking</li>
+          <li>Knowledge graphs &amp; multi-hop retrieval</li>
+          <li>Evaluation aligned with domain experts</li>
+          <li>Failure analysis &amp; content-gap identification</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>What I Offer</h2>
+        <ul class="offer-list">
+          <li>Retrieval-quality audits</li>
+          <li>Signal fusion &amp; reranking design</li>
+          <li>GraphRAG &amp; structured retrieval strategy</li>
+          <li>Content gap &amp; knowledge-base audits</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Availability</h2>
+        <p class="avail">Open to consulting, advisory &amp; technical conversations.
+          <span class="dates">SF Oct 5&ndash;11 · LA Oct 12&ndash;18, 2026</span>
+        </p>
+      </section>
+    </aside>
+
+    <main class="main">
+      <h2>Case Studies &mdash; details on request</h2>
+
+      <div class="case">
+        <div class="case-head">
+          <div class="case-kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"></circle><circle cx="15" cy="12" r="6"></circle></svg>
+            Retrieval signal fusion
+          </div>
+          <div class="case-num">01</div>
+        </div>
+        <p class="case-title">When more retrieval signals make results worse</p>
+        <p class="case-body">Search systems often combine several signals &mdash; keyword matching, semantic similarity, and metadata &mdash; to rank results. Combining them isn't automatic: the scores aren't on the same scale, keyword-heavy documents can crowd out better semantic matches, and a fixed limit on candidates can push the right answer out before it's even ranked. The fix is careful fusion &mdash; routing between retrieval modes based on the query, calibrating thresholds, and reranking with a clear reason for combining each signal.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <div class="case-kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.2"></circle><circle cx="19" cy="6" r="2.2"></circle><circle cx="12" cy="18" r="2.2"></circle><line x1="6.6" y1="7.2" x2="10.8" y2="16.2"></line><line x1="17.4" y1="7.2" x2="13.2" y2="16.2"></line></svg>
+            Structured &amp; graph-aware retrieval
+          </div>
+          <div class="case-num">02</div>
+        </div>
+        <p class="case-title">Why hard domain questions expose RAG weaknesses</p>
+        <p class="case-body">In regulated or technical domains, similarity search alone isn't enough &mdash; two passages can look nearly identical to an embedding model while meaning something different. Questions like these need structured facts, consistent terminology, and the ability to pull in related sections or hop across a knowledge graph, not just a better embedding model. Retrieval systems that hold up in these domains treat structure as part of the design, not something bolted on afterward.</p>
+      </div>
+
+      <div class="case">
+        <div class="case-head">
+          <div class="case-kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="7" ry="2.5"></ellipse><path d="M5 5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V5"></path><path d="M5 11v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"></path></svg>
+            Content gap analysis
+          </div>
+          <div class="case-num">03</div>
+        </div>
+        <p class="case-title">When the answer is missing, not wrong</p>
+        <p class="case-body">A low evaluation score doesn't always mean retrieval failed &mdash; sometimes the answer just isn't in the knowledge base yet. Working closely with subject matter experts, I used evaluation signals to spot these content gaps, then fed them back into what needed to be added or rewritten. That turns evaluation from a one-time score into a feedback loop that keeps improving the system over time.</p>
+      </div>
+    </main>
+
+  </div>
+
+  <footer>Prepared for SF &amp; LA Tech Week 2026 &middot; Details, metrics, and client context available in conversation.</footer>
+
+</div>
+</body>
+</html>
